@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WEBTRUYEN.Models.Chapter>
+
+@{
+    ViewData["Title"] = "Chapters Management";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card-body">
+    <h4 class="card-title">Chapters Management</h4>
+    <hr />
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="">
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Created At</th>
+                    <th>Chapter Number</th>
+                    <th>Type</th>
+                    <th>File Path</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    int index = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@item.Title</td>
+                            <td>@(item.Product?.Name ?? "No Product")</td>
+                            <td>
+                                @Html.Raw(item.Product?.Description?.Length > 50
+                                         ? item.Product.Description.Substring(0, 50) + "..."
+                                         : item.Product?.Description ?? "No Description")
+                            </td>
+                            <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>@item.ChapterNumber</td>
+                            <td>
+                                @if (item.IsPremium)
+                                {
+                                    <span class="badge bg-success">Premium</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Free</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="@item.FilePath" target="_blank">View File</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Chapters"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id">Edit</a>
+
+                                <a class="btn btn-info btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Chapters"
+                                   asp-action="Details"
+                                   asp-route-id="@item.Id">Details</a>
+
+                                <a class="btn btn-danger btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Chapters"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9" class="text-center">No chapters available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <p>
+        <a class="btn btn-primary" asp-area="Admin" asp-controller="Chapters" asp-action="Create">Create New Chapter</a>
+    </p>
+</div>

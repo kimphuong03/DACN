@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WEBTRUYEN.Models.Rating>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Ratings Management";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card-body">
+    <h4 class="card-title">Ratings Management</h4>
+    <hr />
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="">
+                <tr>
+                    <th>#</th>
+                    <th>Product Description</th>
+                    <th>User</th>
+                    <th>Score</th>
+                    <th>Comment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    int index = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                @Html.Raw(item.Product?.Description?.Length > 50
+                                         ? item.Product.Description.Substring(0, 50) + "..."
+                                         : item.Product?.Description ?? "No Description")
+                            </td>
+                            <td>@item.User</td>
+                            <td>@item.Score</td>
+                            <td>@item.Comment</td>
+                            <td>
+                               
+
+                                <a class="btn btn-info btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Ratings"
+                                   asp-action="Details"
+                                   asp-route-id="@item.Id">Details</a>
+
+                                <a class="btn btn-danger btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Ratings"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">No ratings available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    
+</div>

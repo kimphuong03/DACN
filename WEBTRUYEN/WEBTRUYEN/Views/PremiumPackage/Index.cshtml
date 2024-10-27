@@ -1,0 +1,226 @@
+﻿@model IEnumerable<WEBTRUYEN.Models.PremiumPackage>
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NamComic 🍄</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+    <style>
+        /* Custom Styles for Premium Packages Table */
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #ffffff;
+        }
+
+        form {
+            display: inline; /* Align buttons horizontally */
+        }
+
+        button {
+            background-color: #007bff; /* Bootstrap Primary Color */
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+            }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="@Url.Action("Index", "Home")">
+                            <img src="/img/logo2.png" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul class="navbar">
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">Setting <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a asp-area="" asp-controller="PremiumPackage" asp-action="Index">PremiumPackage</a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Follow" asp-action="myfollows">My Follows</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                @* <div class="col-lg-2">
+                <div class="header__right">
+                <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"><span class="icon_profile"></span></a>
+
+                </div>
+                </div> *@
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+
+
+
+    <!-- Header End -->
+
+    <h2 class="section-title text-white">Chọn gói Premium</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên gói</th>
+                <th>Giá</th>
+                <th>Thời hạn (tháng)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var package in Model)
+            {
+                <tr>
+                    <td>@package.Name</td>
+                    <td>@package.Price VNĐ</td>
+                    <td>@package.DurationInMonths tháng</td>
+                    <td>
+                        <form action="/Payment/Execute" method="post">
+                            <input type="hidden" name="premiumPackageId" value="@package.Id" />
+                            <button type="submit">Thanh toán với VnPay</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="page-up">
+            <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer__logo"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="footer__nav ">
+                        <ul>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Blog" asp-action="Index">Our Blog</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/mixitup.min.js"></script>
+    <script src="/js/jquery.slicknav.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    <script>
+        function incrementViewCount(productId) {
+            fetch('/Home/IncrementViewCount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val() // Nếu bạn có CSRF token
+                },
+                body: new URLSearchParams({ id: productId })
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Error increasing view count');
+                }
+            }).catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>

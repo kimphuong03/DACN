@@ -1,0 +1,22 @@
+﻿@model WEBTRUYEN.Models.Category
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card-body">
+    <h4 class="card-title text-primary">Category Categories Management</h4>
+    <p class="card-description"> View detailed information of the selected category.</p>
+
+    <dl class="row mt-4">
+        <dt class="col-sm-3 font-weight-bold">Category Name:</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+    </dl>
+
+    <div class="form-group mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-sm">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary btn-sm ml-2">Back to List</a>
+    </div>
+</div>

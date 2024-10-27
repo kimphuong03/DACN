@@ -1,0 +1,78 @@
+﻿@model WEBTRUYEN.Models.Chapter
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="">
+    <div class="card-body">
+        <h4 class="card-title">Create Chapters Management</h4>
+        <p class="card-description">Fill in the details below to create a new chapter.</p>
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ChapterNumber" class="control-label"></label>
+                <input asp-for="ChapterNumber" class="form-control" />
+                <span asp-validation-for="ChapterNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsPremium" /> @Html.DisplayNameFor(model => model.IsPremium)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FilePath" class="control-label"></label>
+                <input asp-for="FilePath" class="form-control" />
+                <span asp-validation-for="FilePath" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PreviousChapterId" class="control-label"></label>
+                <input asp-for="PreviousChapterId" class="form-control" />
+                <span asp-validation-for="PreviousChapterId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NextChapterId" class="control-label"></label>
+                <input asp-for="NextChapterId" class="form-control" />
+                <span asp-validation-for="NextChapterId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

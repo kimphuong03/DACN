@@ -1,0 +1,34 @@
+﻿@model WEBTRUYEN.Models.ChapterComment
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card text-white bg-dark">
+        <div class="card-header">
+            <h4>Delete Chapter Comment</h4>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Are you sure you want to delete this?</h4>
+            <hr />
+            <blockquote class="blockquote">
+                <p class="mb-0"><strong>Content:</strong> @Html.DisplayFor(model => model.Content)</p>
+                <footer class="blockquote-footer text-white"><strong>Created At:</strong> @Html.DisplayFor(model => model.CreatedAt)</footer>
+            </blockquote>
+            <blockquote class="blockquote blockquote-primary">
+                <p class="mb-0"><strong>User ID:</strong> @Html.DisplayFor(model => model.User.Id)</p>
+                <footer class="blockquote-footer text-white"><strong>Chapter Title:</strong> @Html.DisplayFor(model => model.Chapter.Title)</footer>
+            </blockquote>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <form asp-action="Delete" method="post" class="d-inline">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
